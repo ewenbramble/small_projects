@@ -9,7 +9,7 @@ values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8,
             'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10, 'Ace':1}
 
 class Card:
-    '''Class representing a playing card object'''
+    """Class representing a playing card object"""
     
     def __init__(self, suit, rank):
         self.suit = suit
@@ -20,31 +20,35 @@ class Card:
         return self.rank + " of " + self.suit
 
 class Deck:
-    '''Class representing a deck of card object'''
+    """Class representing a deck of card object"""
     
     def __init__(self):
         
         self.all_cards = []
-        
+
+        # Generate a deck, each suit contains all ranks
         for suit in suits:
             for rank in ranks:
                 created_card = Card(suit, rank)
                 self.all_cards.append(created_card)
                 
     def shuffle(self):
+        """Method shuffles deck"""
         random.shuffle(self.all_cards)
         
     def deal_card(self):
+        """Method deals a single card"""
         return self.all_cards.pop()
 
 class Hand:
-    '''Class representing a player hand'''
+    """Class representing a player hand"""
     
     def __init__(self, name):
         self.name = name
-        self.hand = []
+        self.hand = [] # Player hand empty initially
         
     def add_card(self, new_card):
+        """Method to add a card to player hand"""
         self.hand.append(new_card)
     
     def __str__(self):
@@ -52,7 +56,7 @@ class Hand:
 
 # GAME FUNCTIONS
 def starting_balance():
-    '''Function to set initial balance'''
+    """Function to set initial balance"""
     global balance
     while True: 
         balance = input("How much $ have you brought to the table? $")
@@ -65,11 +69,11 @@ def starting_balance():
     return balance
     
 def show_balance():
-    '''Function to show balance during game'''
+    """Function to show balance during game"""
     print("You have ${} to bet".format(balance))
 
 def bet():
-    '''Functon to set bet amount'''
+    """Functon to set bet amount"""
     global bet_amount
     while True:        
         bet_amount = input("How much would you like to bet on this game? $")
@@ -85,29 +89,29 @@ def bet():
     return bet_amount
     
 def win(amount):
-    '''Function to add win to balance'''
+    """Function to add win to balance"""
     global balance
     balance += 2*amount
 
 def lose(amount):
-    '''Function to subtract loss from balance'''
+    """Function to subtract loss from balance"""
     global balance
     balance -= amount
     
 def balance_check():
-    '''Function to check if balance is not zero'''
+    """Function to check if balance is not zero"""
     if balance > 0:
         return True
     else:
         return False
 
 def deal_two(player_name):
-    '''Function to deal two cards to each player'''
+    """Function to deal two cards to each player"""
     for i in range(2):
         player_name.hand.append(deck.deal_card())
         
 def hand_value(player_name):
-    '''Function that returns the value of a players hand'''
+    """Function that returns the value of a players hand"""
     value = 0
     # add the value of all cards except any aces to value in first loop
     for i in range(len(player_name.hand)):
@@ -125,7 +129,7 @@ def hand_value(player_name):
     return value
 
 def hit_question():
-    ''' Asks if player wants to hit, checks if valid response '''
+    """ Asks if player wants to hit, checks if valid response """
     while True:
         question = input('Would you like to hit? (Y/N): ')
         if question.upper() not in ['Y', 'N']:
@@ -139,13 +143,13 @@ def hit_question():
     
 
 def hit(player_name):
-    ''' Deals a card for deck class instance to player instance, prints new card and value '''    
+    """ Deals a card for deck class instance to player instance, prints new card and value """
     player_name.hand.append(deck.deal_card())
     print("New card for {}: {}".format(player_name, player_name.hand[-1]))
     print("{}'s current hand value: {}".format(player_name, hand_value(player_name)))
     
 def play_again():
-    ''' Asks if play again, returns True if player wants to play again '''
+    """ Asks if play again, returns True if player wants to play again """
     # ask, check response is valid
     while True:
         play_again = input("Would you like to play again? (Y/N)")
@@ -159,7 +163,7 @@ def play_again():
         return False
     
 def reset_hands():
-    ''' Function to clear each hand before dealing in each round '''
+    """ Function to clear each hand before dealing in each round """
     player.hand = []
     dealer.hand = []
 
